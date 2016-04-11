@@ -1,0 +1,46 @@
+<div class="couponsWrapper">
+    <div class="couponsWrap">
+        <div class="couponContainer  animated fadeInDown" data-toggle="modal" data-target="#myModal">
+            <img src="images/coupons/c1.png" ng-click="coupon=1; couponHL='שמפו 500 מל'; couponText='אפשר לקנות רק אצלי בלה בלה בלה'" class="coupon" />
+            <h3>שמפו 500 מ"ל</h3>
+            <h4>50 ש"ח</h4>
+        </div>
+        <div class="couponContainer  animated fadeInDown" data-toggle="modal" data-target="#myModal">
+            <img src="images/coupons/c2.png" ng-click="coupon=2; couponHL='גנריק'; couponText='מחיר מיוחד למסתפרים קבוע'"class="coupon" />
+            <h3>גנריק</h3>
+            <h4>70 ש"ח</h4>
+        </div>
+        <div class="couponContainer  animated fadeInDown" data-toggle="modal" data-target="#myModal">
+            <img src="images/coupons/c3.png" ng-click="coupon=3; couponHL='פארי'; couponText='חדש חדש חדש בלה בלה....'" class="coupon" />
+            <h3>פארי</h3>
+            <h4>120 ש"ח</h4>
+        </div>
+        <div class="couponContainer  animated fadeInDown" data-toggle="modal" data-target="#myModal">
+            <img src="images/coupons/c4.png" ng-click="coupon=4; couponHL='אנדרווטר'; couponText='1 + 1 על כל קניה'" class="coupon" />
+            <h3>אנדרווטר</h3>
+            <h4>50 ש"ח</h4>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">{{couponHL}}</h4>
+            </div>
+            <div class="modal-body">
+                <p>{{couponText}}</p>
+                <img ng-src="images/coupons/c{{coupon}}Big.png" style="float:left;">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" style="    float: left;">סגור</button>
+            </div>
+        </div>
+
+    </div>
+</div>

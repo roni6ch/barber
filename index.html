@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html ng-app="barberApp">
+<head>
+    <title>אבי לוי</title>
+    <meta name="viewport" content="width=device-width"/>
+    <!-- CSS -->
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/animate.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/jquery-ui.min.css">
+
+    <link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css">
+    <!-- NAV -->
+    <link rel="stylesheet" type="text/css" href="css/component.css"/>
+    <link rel="stylesheet" type="text/css" media="all" href="css/style.css"/>
+    <!-- JS -->
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-datetimepicker.min.js"></script>
+
+
+
+</head>
+<body>
+<section class="color-6">
+    <audio>
+        <source src="video/scissor.mp3"></source>
+    </audio>
+    <a href="#/"><img src="images/logo.png" class="animated pulse"/></a>
+    <nav class="cl-effect-18">
+        <a href="#/">דף הבית</a>
+        <a href="#/price">מחירון</a>
+        <a href="#/gallery">גלריה</a>
+        <a href="#/coupons">קופונים</a>
+        <a href="#/about">אודות</a>
+    </nav>
+</section>
+
+<div class="wrapper">
+    <div ng-view></div>
+</div>
+<footer>
+</footer>
+<script src="js/lib/angular/angular.min.js"></script>
+<script src="js/lib/angular/angular-route.min.js"></script>
+<script src="js/site.js"></script>
+</body>
+</html>
