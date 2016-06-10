@@ -36,18 +36,39 @@ app.controller('indexController', function ($scope) {
  * ********************* home Controller ****************
  */
 
-app.controller('homeController', function ($scope, $http) {
+app.controller('homeController', function ($scope, $http, $timeout) {
+    $(".fa-spin").hide();
+    var months = ["ינואר", "פברואר", "מרץ", "אפריל", "מאי", "יוני", "יולי", "אוגוסט", "ספטמבר", "אוקטובר", "נובמבר", "דצמבר"];
     angular.element('#datetimepicker12').datetimepicker({
         inline: true,
         sideBySide: true
     });
 
-    $scope.submitNewOrder = function () {
+    $scope.order = function () {
+        $(".youtube").fadeOut("slow", function () {
+            // Animation complete.
+            $(".youtube").remove();
+        });
 
-        var minutes = $('.datetimepicker-minutes .active').html().split(":")[1];
+
+        $(".order").fadeOut("slow", function () {
+            $(".homeWrap").fadeIn("slow", function () {
+                // Animation complete.
+            });
+            $(".color-6").fadeIn("slow", function () {
+                // Animation complete.
+            });
+        });
+
+    }
+
+    $scope.submitNewOrder = function (modalNum) {
+        $(".fa-spin").show();
+        if ($('.datetimepicker-minutes .active').html() != undefined)
+            var minutes = $('.datetimepicker-minutes .active').html().split(":")[1];
         var hour = "00";
         if ($('.datetimepicker-hours .active').html()) {
-            console.log($('.datetimepicker-hours .active').html());
+            // console.log($('.datetimepicker-hours .active').html());
             hour = $('.datetimepicker-hours .active').html().split(":")[0];
         }
         var year = $('.datetimepicker-months .switch').html();
@@ -56,25 +77,25 @@ app.controller('homeController', function ($scope, $http) {
         var name = $("#user_name").val();
         var haircut = $("#user_haircut option:selected").val();
         var notes = $("#user_notes").val();
-        var months = ["ינואר", "פברואר", "מרץ", "אפריל", "מאי", "יוני", "יולי", "אוגוסט", "ספטמבר", "אוקטובר", "נובמבר", "דצמבר"];
         var monthConvertedToInt = months.indexOf(month) + 1;
 
 
         if (year == undefined || year == "" || minutes == undefined || minutes == "" || month == undefined || month == "" || day == undefined || day == "" || hour == "" || hour == undefined || name == "" || haircut == "") {
-            $scope.modalText = "אנא הזן את כל הפרטים";
-            $(".hiddenButtonForModalOpen").click();
+            $scope.modalText = "אנא הזן תאריך, שעה ושם";
+            $scope.hour = "";
+            $scope.haircut = "";
+            $("." + modalNum).click();
         }
         else {
-            console.log("name: " + $("#user_name").val());
-            console.log("notes: " + $("#user_notes").val());
-            console.log("haircut: " + $("#user_haircut option:selected").val());
+            /* console.log("name: " + $("#user_name").val());
+             console.log("notes: " + $("#user_notes").val());
+             console.log("haircut: " + $("#user_haircut option:selected").val());
 
-            console.log("year: " + $('.datetimepicker-months .switch').html());
-            console.log("month: " + $('.datetimepicker-days .switch').html().split(" ")[0]);
-            console.log("day: " + $('.datetimepicker-hours .switch').html().split(" ")[0]);
-            console.log("hour: " + $('.datetimepicker-hours .active').html().split(":")[0]);
-            console.log("minutes: " + $('.datetimepicker-minutes .active').html().split(":")[1]);
-
+             console.log("year: " + $('.datetimepicker-months .switch').html());
+             console.log("month: " + $('.datetimepicker-days .switch').html().split(" ")[0]);
+             console.log("day: " + $('.datetimepicker-hours .switch').html().split(" ")[0]);
+             console.log("hour: " + $('.datetimepicker-hours .active').html().split(":")[0]);
+             console.log("minutes: " + $('.datetimepicker-minutes .active').html().split(":")[1]);*/
 
             $scope.name = name;
             $scope.day = day;
@@ -99,13 +120,110 @@ app.controller('homeController', function ($scope, $http) {
                     'notes': notes
                 })
             }).success(function (data) {
+                $(".fa-spin").hide();
+                $("." + modalNum).click();
                 $scope.modalText = " - הזמנתך אושרה";
-                $(".hiddenButtonForModalOpen").click();
                 $scope.data = data;
             });
         }
     }
+
+    $scope.init = function () {
+        $('.datetimepicker-minutes .active').removeClass("active");
+        //hours from db
+        angular.element(".day").click(function () {
+
+            // Animation for hours
+            $(".datetimepicker-hours").fadeIn("slow", function () {
+            });
+
+            $timeout(function () {
+                var year = angular.element('.datetimepicker-hours .switch').html().split(" ")[2];
+                var month = angular.element('.datetimepicker-hours .switch').html().split(" ")[1];
+                var day1 = angular.element(".datetimepicker-hours .switch").html().split(" ")[0];
+                var monthConvertedToInt = months.indexOf(month) + 1;
+                $http({
+                    url: "db.php",
+                    method: "POST",
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                    data: $.param({
+                        'getCustomers': "getCustomers",
+                        'year': year,
+                        'month': monthConvertedToInt,
+                        'day': day1
+                    })
+                }).success(function (data) {
+                    if (data != null) {
+                        console.log(data);
+
+                        /*if (value.minutes == v.innerHTML.split(":")[1] && value.hour == time){
+                         angular.element(v).addClass("hidden");
+                         }*/
+                        angular.forEach(data, function (value, key) {
+                            angular.forEach(angular.element(".hour"), function (v, k) {
+                                var time = v.innerHTML.split(":")[0];
+                                if (value.hour == time)
+                                    angular.element(v).removeClass('hour').addClass("hidden");
+                            });
+                        });
+                    }
+                });
+            }, 100);
+        });
+
+
+        //remove Saturday
+        $timeout(function () {
+            angular.forEach(angular.element(".datetimepicker-days tr .day:last-child"), function (value, key) {
+                var Saturday = angular.element(value);
+                Saturday.removeClass('day').addClass("notWorkingDay");
+            });
+            //remove Mondays
+            angular.forEach(angular.element(".datetimepicker-days tr .day:nth-child(2)"), function (value, key) {
+                var Mondays = angular.element(value);
+                Mondays.removeClass('day').addClass("notWorkingDay");
+            });
+            //Fridays click event
+            angular.forEach(angular.element(".datetimepicker-days tr .day:nth-child(6)"), function (value, key) {
+                var friday = angular.element(value);
+                friday.click(function () {
+                    $timeout(function () {
+                        angular.forEach(angular.element(".datetimepicker-hours tr .hour:nth-child(n+7)"), function (value, key) {
+                            var hours = angular.element(value);
+                            hours.removeClass('hour').addClass("hidden");
+                        });
+                    }, 10);
+                });
+            });
+        }, 500);
+    }
+
+    //click on date event
+    angular.element(".switch").click(function () {
+        $scope.init();
+    });
+    angular.element(".today").click(function () {
+        $timeout(function () {
+            $scope.init();
+        });
+    });
+    angular.element(".month").click(function () {
+        $scope.init();
+    });
+    angular.element(".prev").click(function () {
+        $timeout(function () {
+            $scope.init();
+        });
+    });
+    angular.element(".next").click(function () {
+        $timeout(function () {
+            $scope.init();
+        });
+    });
+
+
 });
+
 /*
  * ********************* price Controller ****************
  */
@@ -138,16 +256,14 @@ app.controller('aboutController', function ($scope) {
  * ********************* customers Controller ****************
  */
 
-app.controller('customersController', function ($scope, $http) {
+app.controller('customersController', function ($scope, $http,$timeout) {
+    var months = ["ינואר", "פברואר", "מרץ", "אפריל", "מאי", "יוני", "יולי", "אוגוסט", "ספטמבר", "אוקטובר", "נובמבר", "דצמבר"];
 
     var year = new Date().getFullYear();
     var month = new Date().getMonth() + 1;
     var day = new Date().getUTCDate() + 1;
-    /*
-     console.log("year: " + year);
-     console.log("month: " + (month));
-     console.log("day: " + day);*/
-    $scope.customers = function () {
+
+    $scope.init = function () {
         $http({
             url: "db.php",
             method: "POST",
@@ -156,15 +272,27 @@ app.controller('customersController', function ($scope, $http) {
                 'getCustomers': "getCustomers",
                 'year': year,
                 'month': month,
-                'day': day
+                'day': day - 1
             })
         }).success(function (data) {
-            if (data != null) {
+            if (data != false) {
+
+                data.sort(function (a, b) {
+                    if (a.hour > b.hour) {
+                        return 1;
+                    }
+                    if (a.hour < b.hour) {
+                        return -1;
+                    }
+                    // a must be equal to b
+                    return 0;
+                });
                 $scope.customers = data;
+                $scope.date = data[0].day + "-" + data[0]['converted_month'] + "-" + data[0].year;
                 console.log(data);
             }
             else {
-                console.log("empty");
+                $scope.date = (day - 1) + "-" + month + "-" + year;
             }
         });
     }
@@ -206,20 +334,24 @@ app.controller('customersController', function ($scope, $http) {
                 'getCustomers': "getCustomers",
                 'year': year,
                 'month': month,
-                'day': day
+                'day': day - 1
             })
         }).success(function (data) {
-            if (data != null) {
-                $scope.customers = data
-                console.log($scope.customers);
+            if ($.trim(data) != "") {
+                $scope.customers = data;
+                console.log(data);
+                $scope.date = data[0].day + "-" + data[0]['converted_month'] + "-" + data[0].year;
             }
             else {
-                console.log("empty");
+                $scope.customers = '';
+                var tempEmptyData = [];
+                // tempEmptyData.push({"day": day - 1, "month": month, "year": year});
+                $scope.customers = tempEmptyData;
+                $scope.date = (day - 1) + "-" + month + "-" + year;
             }
         });
     }
     $scope.cancelOrder = function (ID) {
-        console.log(ID);
         $http({
             url: "db.php",
             method: "POST",
@@ -241,6 +373,7 @@ app.controller('customersController', function ($scope, $http) {
  * ********************* JS  ****************
  */
 $(document).ready(function () {
+
     var sideslider = $('[data-toggle=collapse-side]');
     var sel = sideslider.attr('data-target');
     var sel2 = sideslider.attr('data-target-2');
@@ -248,7 +381,6 @@ $(document).ready(function () {
         $(sel).toggleClass('in');
         $(sel2).toggleClass('out');
     });
-
 
     $("nav a").mouseenter(function () {
         $("audio")[0].play();

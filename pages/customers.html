@@ -1,16 +1,21 @@
-<div class="customersWrapper" ng-init="customers()">
+<div class="customersWrapper" ng-init="init()">
 
-    <div class="daysButtona">
-        <button type="button" class="btn btn-default" data-dismiss="modal" style="margin-right:42%;" ng-click="changeDay('today')">קפוץ להיום</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal" style="float: right;" ng-click="changeDay('last')">יום קודם</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal" style="float: left;" ng-click="changeDay('next')">יום הבא</button></div>
+    <div class="daysButtons">
+        <button type="button" class="btn btn-default" style="float: right;"
+                ng-click="changeDay('last')">יום קודם
+        </button>
+
+        <button type="button" class="btn btn-default" style="float: left;"
+                ng-click="changeDay('next')">יום הבא
+        </button>
+        <a href="" class="date" ng-click="changeDay('today')">{{date}}</a>
+    </div>
 
     <div class="customersWrap">
         <table class="table table-striped  animated fadeInDown">
             <thead>
             <tr>
-                <th>תאריך</th>
-                <th>שם הלקוח</th>
+                <th>לקוח</th>
                 <th>שעה</th>
                 <th>תספורת</th>
                 <th>הערות</th>
@@ -18,8 +23,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="customer in customers | orderBy:'full_date'" class="customers">
-                <td>{{customer.day}} , {{customer.month}} , {{customer.year}}</td>
+            <tr ng-repeat="customer in customers | orderBy:'hour'" class="customers">
                 <td>{{customer.name}}</td>
                 <td>{{customer.minutes}} : {{customer.hour}}</td>
                 <td>{{customer.haircut}}</td>

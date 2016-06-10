@@ -4,7 +4,7 @@
     <title>אבי לוי</title>
     <meta name="viewport" content="width=device-width"/>
     <!-- CSS -->
-    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
     <link rel="stylesheet" href="css/animate.css" rel="stylesheet">
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/jquery-ui.min.css">
@@ -23,7 +23,7 @@
 
 </head>
 <body>
-<section class="color-6">
+<section class="color-6" style="display:none">
     <audio>
         <source src="video/scissor.mp3"></source>
     </audio>
@@ -36,6 +36,33 @@
         <a href="#/about">אודות</a>
     </nav>
 </section>
+
+
+<nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <nav>
+                <a href="#/" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">דף הבית</a>
+                <a href="#/price" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">מחירון</a>
+                <a href="#/gallery" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">גלריה</a>
+                <a href="#/coupons" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">קופונים</a>
+                <a href="#/about" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">אודות</a>
+            </nav>
+        </div>
+    </div>
+</nav>
+
 
 <div class="wrapper">
     <div ng-view></div>
