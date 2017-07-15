@@ -101,7 +101,7 @@ app.controller('homeController', function ($scope, $http, $timeout) {
             $scope.day = day;
             $scope.hour = "לשעה: " + hour + ":" + minutes;
             $scope.haircut = "לתספורת: " + haircut;
-
+console.log("a");
             $http({
                 url: "db.php",
                 method: "POST",
@@ -120,6 +120,7 @@ app.controller('homeController', function ($scope, $http, $timeout) {
                     'notes': notes
                 })
             }).success(function (data) {
+                console.log(data);
                 $(".fa-spin").hide();
                 $("." + modalNum).click();
                 $scope.modalText = " - הזמנתך אושרה";
@@ -278,6 +279,10 @@ app.controller('customersController', function ($scope, $http,$timeout) {
             if (data != false) {
 
                 data.sort(function (a, b) {
+                    if (b.hour.length == 1)
+                        b.hour = "0"+ b.hour;
+                    if (a.hour.length == 1)
+                        a.hour = "0"+ a.hour;
                     if (a.hour > b.hour) {
                         return 1;
                     }

@@ -4,7 +4,7 @@
     border: 0;
     font-size: 100%;
     font: inherit;
-    font-family: 'petelReg';
+   font-family: 'petelReg';
     vertical-align: baseline;
     direction: rtl !important;
 }
@@ -264,7 +264,7 @@ i:hover {
 }
 .homeWrap > section{
     margin: 3% auto;
-    width: 30%;
+    width: 500px;
 }
 
 

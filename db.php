@@ -25,24 +25,24 @@ if (!mysqli_set_charset($connection,'utf8')) {
 }
 switch (true) {
 	case isset ( $_POST ["newCustomer"] ):
-	$hour = $_POST['hour'];
-	$minutes = $_POST['minutes'];
-	if ($minutes =="0")
-	    $minutes = "00";
-	$year = $_POST['year'];
-	$month = $_POST['month'];
-	$convertedMonth = $_POST['convertedMonth'];
-	$day = $_POST['day'];
-	$name = $_POST['name'];
-	$haircut = $_POST['haircut'];
-	$notes = $_POST['notes'];
-	$fullDate = $_POST['fullDate'];
-	echo $fullDate;
-	if (isset ( $hour ) && ! empty ( $hour )) {
-			$result = $connection->query ( "INSERT customers SET full_date ='" . $fullDate . "' ,minutes ='" . $minutes . "' ,hour ='" . $hour . "' ,year ='" . $year . "' ,month ='" . $month . "' ,converted_month ='" . $convertedMonth . "' ,day ='" . $day . "' , name ='" . $name . "' , haircut ='" . $haircut . "' , notes ='" . $notes . "'" );
-			if ($result->num_rows > 0)
-			    echo true;
-		}
+        $hour = $_POST['hour'];
+        $minutes = $_POST['minutes'];
+        if ($minutes =="0")
+            $minutes = "00";
+        $year = $_POST['year'];
+        $month = $_POST['month'];
+        $convertedMonth = $_POST['convertedMonth'];
+        $day = $_POST['day'];
+        $name = $_POST['name'];
+        $haircut = $_POST['haircut'];
+        $notes = $_POST['notes'];
+        $fullDate = $_POST['fullDate'];
+        if (isset ( $hour ) && ! empty ( $hour )) {
+                $result = $connection->query ( "INSERT  customers SET minutes ='" . $minutes . "' ,hour ='" . $hour . "' ,year ='" . $year . "' ,month ='" . $month . "' ,converted_month ='" . $convertedMonth . "' ,day ='" . $day . "' , name ='" . $name . "' , haircut ='" . $haircut . "' , notes ='" . $notes . "'" );
+
+                if ($result > 0)
+                    echo true;
+            }
 	break;
 	case isset ( $_POST ["getCustomers"] ):
 	    $year = $_POST['year'];

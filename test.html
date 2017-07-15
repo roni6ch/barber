@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="js/datepicker-he.js"></script>
+    <script>
+        $( function() {
+            $( "#datepicker" ).datepicker( $.datepicker.regional[ "he" ] );
+        } );
+    </script>
+</head>
+<body style="direction: rtl;">
+
+<p>בחר תאריך</p>
+<div id="datepicker"></div>
+
+
+
+
+<div class="homeWrap">
+    <section>
+
+        <div class="orderDetails" style="    width: 20%;">
+            <div class="form-group">
+                <label for="user_haircut">בחר סוג תספורת</label>
+                <select class="form-control" id="user_haircut">
+                    <option value="שיער קצוץ">שיער קצוץ</option>
+                    <option value="החלקה">החלקה</option>
+                    <option value="פן">פן</option>
+                    <option value="צביעה">צביעה</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="user_haircut">בחר שעה</label>
+                <select class="form-control" id="user_haircut">
+                    <option value="9">09:00</option>
+                    <option value="9-30">09:30</option>
+                    <option value="10">10:00</option>
+                    <option value="10-30">10:30</option>
+                    <option value="11">11:00</option>
+                    <option value="11-30">11:30</option>
+                    <option value="12">12:00</option>
+                    <option value="12-30">12:30</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="user_name">שם מלא:</label>
+                <input type="text" class="form-control" id="user_name" placeholder="אנא הזן שם מלא">
+            </div>
+            <div class="form-group">
+                <label for="user_notes">הערות:</label>
+                <textarea class="form-control" rows="5" id="user_notes" placeholder="*אופציונלי"></textarea>
+            </div>
+
+            <input type="hidden" class="hiddenButtonForModalOpen1" data-toggle="modal" data-target="#alertModal"/>
+        </div>
+        <div class="timePickerWrap" style="overflow:hidden;">
+
+
+            <div class="form-group">
+                <div class="row">
+                    <div>
+                        <div id="datetimepicker12"></div>
+                    </div>
+                </div>
+            </div>
+            <button type="button" class="btn btn-info submitNewOrderMobile"
+                    ng-click="submitNewOrder('hiddenButtonForModalOpen2')">לחץ לאישור הזמנה
+            </button>
+            <input type="hidden" class="hiddenButtonForModalOpen2" data-toggle="modal" data-target="#alertModal"/>
+        </div>
+    </section>
+</div>
+
+
+</body>
+</html>
